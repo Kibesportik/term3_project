@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text">
+<h2>Login</h2>
+<p></p>
+{% for msg in get_flashed_messages(category_filter=["error"]) %}
+<div class="error">{{msg}}</div>
+{% endfor %}
+<form method="POST" action="{{url_for('login') }}">
+    <label for="">Email:</label>
+    <input type="email" name="email" required/>
+    <p></p>
+    <label for="">Password:</label>
+    <input type="password" name="password" required/>
+    <p></p>
+    <button type="submit" class="btn btn-info">Confirm</button>
+</form>
+</div>
+{% endblock %}
