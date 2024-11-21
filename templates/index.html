@@ -1,4 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
-aasfddadvsdasdvsqasfddadvsdasdvs
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#projectModal">
+    Add Project
+  </button>
+  <div class="container" id="projects">
+    {% for p in projects %}
+      <div class="row">
+        <div class="card">
+          <button id="editButton{{ p.id }}" class="project-edit-button" data-name="projectName{{ p.id }}" data-edit="projectEditName{{ p.id }}">Edit</button>
+          <div class="card-header">
+            <h3 id="projectName{{ p.id }}">{{ p.name }}</h3>
+            <div class="d-none" id="projectEditName{{ p.id }}">
+              <input id="projectNameInput{{ p.id }}" value="{{ p.name }}">
+              <button class="project-edit-save" data-input="projectNameInput{{ p.id }}" data-url="/update-project/{{ p.id }}" data-project-id="{{ p.id }}">Save</button>
+            </div>
+          </div>
+          <button class="add-task-button" data-url="/project/{{ p.id }}/add-task" data-bs-toggle="modal" data-bs-target="#taskModal">Add task</button>
+          <div class="card-body" id="projectTasks{{ p.id }}">
+            <table>
+              <tbody>
+                {% for task in p.tasks %}
+                  <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.priority }}</td>
+                    <td>{{ task.deadline }}</td>
+                    <td>
+                      {% if task.is_done %}
+                        <p class="text-success">Done</p>
+                      {% else %}
+                        <p class="text-danger">Not done</p>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if not task.is_done %}
+                        <button class="set-task-as-done" data-url="/task/{{ task.id }}/set-done">Set Done</button>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
 {% endblock %}
