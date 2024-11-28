@@ -37,8 +37,3 @@ class Tour(Base):
     price = Column(Integer, unique = True, nullable = False)
 
 
-
-
-
-
-

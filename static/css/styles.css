@@ -4,3 +4,10 @@ color: red;
 .text {
 padding-left: 15px;
 }
+.user_info {
+text-align: right;
+padding-right: 15px;
+}
+.bg {
+background-color: #808080
+}
