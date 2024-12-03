@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    {% block import %}{% endblock %}
 </head>
 <body class="bg">
         <header>
@@ -18,9 +17,17 @@
         <nav class="navbar navbar-expand-md">
             <h1 class="text"> </h1>
             <a class="btn btn-warning btn-header" href="{{ url_for('index')}}">Home</a>
-            <button class="btn btn-warning btn-header"  type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal" data-bs-target="#Register_Window">Register
+            <button class="btn btn-warning btn-header"  type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+                    data-bs-target="#Register_Window">Register
             </button>
-            <button class="btn btn-warning btn-header"  type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal" data-bs-target="#Login_Window">Login
+            <button class="btn btn-warning btn-header"  type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+                    data-bs-target="#Login_Window">Login
+            </button>
+            <button class="btn btn-warning btn-header"  type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+                    data-bs-target="#Add_Tour_Window"> Add Tour
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
@@ -28,32 +35,37 @@
                     </li>
                 </ul>
             </div>
-            <div class="user_info">
-                <button class="btn btn-warning btn-header d-none" id="user_btn" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal" data-bs-target="">{{current_username}}
+            <div id='user_info' class="user_info">
+                <button class="btn btn-warning btn-header d-none" id="user_btn" type="button" data-toggle="collapse"
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation" data-bs-toggle="modal" data-bs-target="#User_Window">{{current_user}}
             </button>
             </div>
 
         </nav>
     </header>
-{% block modals %}
+
       <div class="modal fade" id="Register_Window" tabindex="-1" aria-labelledby="Register_Window" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="Register_Window_Label">Register</h1>
+          <h1 class="modal-title fs-5">Register</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-    <form method="post" >
-    Username: <input type="text"  id="username">
+            <div id="register_error" class="error">
+
+            </div>
+    <form  id="registerForm" method="post" action="{{url_for('register')}}">
+    Username: <input type="text" id="register_username"  name="username">
     <p></p>
-    Email: <input type="email"  id="email"/>
+    Email: <input type="email" id="register_email" name="email"/>
     <p></p>
-    Password: <input type="password"  id="password"/>
+    Password: <input type="password" id="register_psw" name="password"/>
     <p></p>
-    Confirm Password: <input type="password"  id="confirm_psw"/>
+    Confirm Password: <input type="password" id="register_confirm_psw" name="confirm_psw"/>
     <p></p>
-        <button type="submit" class="btn btn-warning btn-header" id="register_button" data-url="url_for('register')">Confirm</button>
+        <button type="submit" class="btn btn-warning btn-header">Confirm</button>
     </form>
         </div>
       </div>
@@ -64,25 +76,84 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="Login_Window_Label">Login</h1>
+          <h1 class="modal-title fs-5">Login</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-    <form method="post" >
-    Email: <input type="email" id="login_email"/>
+            <div id="login_error" class="error">
+
+            </div>
+    <form id="loginForm" method="post" action="{{url_for('login')}}">
+    Email: <input type="email" id="login_email" name="email"/>
     <p></p>
-    Password: <input type="password" id="login_password"/>
+    Password: <input type="password" id="login_psw" name="password"/>
     <p></p>
-    <button type="submit" class="btn btn-warning btn-header" id="login_button" data-url="url_for('login')">Confirm</button>
+    <button type="submit" class="btn btn-warning btn-header">Confirm</button>
     </form>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="User_Window" tabindex="-1" aria-labelledby="User_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Information about {{current_user}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="user_error" class="error">
+
+            </div>
+    <form id="userForm" method="post" action="{{url_for('login')}}">
+    Password: <input type="password" id="user_psw" name="password"/>
+    <p></p>
+    Confirm Password: <input type="password" id="user_confirm_psw" name="confirm_password"/>
+    <p></p>
+    <button type="submit" class="btn btn-warning btn-header">Confirm</button>
+    </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="Add_Tour_Window" tabindex="-1" aria-labelledby="Add_Tour_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Add Tour</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="tour_error" class="error">
+
+            </div>
+          Tour name: <input type="text" id="tour_name" required>
+          <p></p>
+          City: <input type="text" id="city" required>
+          <p></p>
+          Tour Date: <input type="date" id="tour_date" required>
+          <p></p>
+          Tour quantity: <input type="number" id="tour_quant" required>
+          <p></p>
+          Price: <input type="number" id="price" required>
+          <p></p>
+          Description: <input type="text" id="description" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning btn-header" id="Add_tour_btn" data-url="">Add_tour</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% block modals %}
 {% endblock %}
     {% block scripts %}
-  <script src="/static/js/project-create.js"></script>
-  <script src="/static/js/project-edit.js"></script>
+        <script src="/static/js/register.js"></script>
+        <script src="/static/js/login.js"></script>
+        <script src="/static/js/add-tour.js"></script>
     {% endblock %}
 </body>
 </html>

@@ -11,3 +11,9 @@ padding-right: 15px;
 .bg {
 background-color: #808080
 }
+.wideinput {
+width: 100%;
+}
+.thin_input{
+width: 40%;
+}
