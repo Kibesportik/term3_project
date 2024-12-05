@@ -7,12 +7,9 @@ from sqlalchemy.orm import Session
 
 @app.get('/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db)):
-    tours = db.query(Tour).all()
-    city_list = []
-    for i in tours:
-        print(city_list.append(i.city))
-    print(city_list)
-    return templates.TemplateResponse('index.html', {'request': request, 'tours': tours})
+    print(request.session['is_login'])
+    return templates.TemplateResponse('index.html', {'request': request, 'current_user': request.session['username'],
+                                                     'is_login': request.session['is_login']})
 
 
 @app.post('/register')
@@ -59,7 +56,7 @@ def login(
     return {'current_user': request.session['username']}
 
 
-@app.post('/login')
+@app.post('/add_tour')
 def add_tour(
         request: Request,
         city: str = Form(),
@@ -69,7 +66,7 @@ def add_tour(
         description: str = Form(),
         tour_name: str = Form(),
         db: Session = Depends(get_db)):
-    tour_info = db.query(User).filter_by(tour_name=tour_name).first()
+    tour_info = db.query(Tour).filter_by(tour_name=tour_name).first()
     if tour_info is None:
         if len(description) >= 30:
             if price >= 100:

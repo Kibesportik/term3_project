@@ -1,4 +1,5 @@
-document.getElementById("Add_tour_btn").click(function() {
+document.getElementById("tourForm").addEventListener("submit", function(event) {
+    event.preventDefault();
     $.ajax('/add_tour', {
         'type': 'POST',
         'async': true,
@@ -12,12 +13,6 @@ document.getElementById("Add_tour_btn").click(function() {
             'tour_name': $('#tour_name').val()
         },
         'success': function (response){
-            'city': $('#city').val();
-            'tour_date': $('#tour_date').val();
-            'tour_quant': $('#tour_quant').val();
-            'price': $('#price').val();
-            'description': $('#description').val();
-            'tour_name': $('#tour_name').val();
             document.getElementById('tour_error').innerHTML = '';
             $('#Add_Tour_Window').modal('hide');
         },
