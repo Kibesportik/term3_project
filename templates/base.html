@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Time2tour </title>
     <link rel="stylesheet" href="static/css/styles.css"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -17,9 +17,8 @@
 </head>
 <body class="bg">
         <header>
-            <h1 class="text"> Time2Tour </h1>
+            <h1>Time2Tour</h1>
         <nav class="navbar navbar-expand-md">
-            <h1 class="text"> </h1>
             <a class="btn btn-warning btn-header" href="{{ url_for('index')}}">Home</a>
             <button class="btn btn-warning btn-header"  type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
@@ -109,7 +108,7 @@
             <div id="user_error" class="error">
 
             </div>
-    <form id="userForm" method="post" action="{{url_for('login')}}">
+    <form id="userForm" method="post" action="{{url_for('index')}}">
     Reset Password:
     <p></p>
     Password: <input type="password" id="user_psw" name="password"/>
@@ -119,6 +118,9 @@
     <button type="submit" class="btn btn-warning btn-header">Confirm</button>
     </form>
         </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" style="text-align: left;">Log out</button>
+      </div>
       </div>
     </div>
   </div>
@@ -153,6 +155,8 @@
       </div>
     </div>
   </div>
+{% block content %}
+{% endblock %}
 {% block modals %}
 {% endblock %}
     {% block scripts %}
@@ -160,6 +164,7 @@
         <script src="/static/js/login.js"></script>
         <script src="/static/js/add-tour.js"></script>
         <script src="/static/js/index.js"></script>
+        <script src="/static/js/tour_order.js"></script>
     {% endblock %}
 </body>
 </html>

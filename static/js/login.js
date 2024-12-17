@@ -19,7 +19,6 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         },
         'statusCode': {
         418: function(response) {
-            console.log(response)
             document.getElementById('login_error').innerHTML = '';
             document.getElementById('login_error').innerHTML = response.responseJSON.error;}
         }

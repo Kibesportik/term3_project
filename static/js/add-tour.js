@@ -18,7 +18,6 @@ document.getElementById("tourForm").addEventListener("submit", function(event) {
         },
         'statusCode': {
         418: function(response) {
-            console.log(response)
             document.getElementById('tour_error').innerHTML = '';
             document.getElementById('tour_error').innerHTML = response.responseJSON.error;}
         }

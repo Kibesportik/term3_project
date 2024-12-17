@@ -23,7 +23,6 @@ document.getElementById("registerForm").addEventListener("submit", function(even
         },
         'statusCode': {
         418: function(response) {
-            console.log(response)
             document.getElementById('register_error').innerHTML = '';
             document.getElementById('register_error').innerHTML = response.responseJSON.error;}
         }

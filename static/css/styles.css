@@ -1,19 +1,20 @@
 .error {
 color: red;
 }
-.text {
-padding-left: 15px;
+.blacker {
+color: black;
 }
 .user_info {
 text-align: right;
-padding-right: 15px;
 }
 .bg {
-background-color: #808080
+background-color: #808080;
+padding-left: 15px;
+padding-right: 15px;
 }
-.wideinput {
-width: 100%;
+.skibibutton {
+    border: none;
+    padding: 0;
+    background: none;
 }
-.thin_input{
-width: 40%;
-}
+
