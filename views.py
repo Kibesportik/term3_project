@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi import Request, Depends, Form
 from sqlalchemy.orm import Session
 
+
 @app.get('/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db)):
     tour_list_len = len(db.query(Tour).all())
@@ -12,7 +13,7 @@ def index(request: Request, db: Session = Depends(get_db)):
         tour_example = db.query(Tour).get(tour_id)
         tour_list.append(tour_example)
     return templates.TemplateResponse('index.html', {'request': request, 'current_user': request.session['username'],
-                                        'is_login': request.session['is_login'], 'tour_list': tour_list})
+                                                     'is_login': request.session['is_login'], 'tour_list': tour_list})
 
 
 @app.post('/register')
@@ -85,12 +86,13 @@ def add_tour(
         return JSONResponse({'error': 'Tour already exists'}, status_code=418)
     return {}
 
+
 @app.post('/tour_order/{tour_id}')
 def tour_order(request: Request,
                tour_id: int,
                order_amount: int = Form(),
                db: Session = Depends(get_db)):
-    if 0 <= order_amount <= 100 :
+    if 0 <= order_amount <= 100:
         ordered_tour = db.query(Tour).get(tour_id)
         ordered_tour.quantity = ordered_tour.quantity - order_amount
         db.commit()
