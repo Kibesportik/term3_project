@@ -1,49 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
-<hr>
+<p></p>
+<div class="row row-cols-1 row-cols-md-2 g-1" id="tour_holder">
 {% for tour in tour_list %}
-  <div class="modal fade" id="modal_{{tour.id}}" tabindex="-1" aria-labelledby="Order_Tour_Window" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Order Tour</h1>
+<div class="modal fade" id="modal_{{tour.id}}" tabindex="-1" aria-labelledby="Order_Tour_Window" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="modal-title fs-5">Order a Tour</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Tour to: {{ tour.city }}
-          <p></p>
-          Tour date: {{ tour.tour_date }}
-          <p></p>
-          Price per person: {{ tour.price }}
-          <p></p>
-          Spaces left: {{ tour.quantity }}
+      </div>
+      <div class="modal-body">
+          <p>Tour to: {{ tour.city }}</p>
+          <p>Tour date: {{ tour.tour_date }}</p>
+          <p>Price per person: {{ tour.price }}</p>
+          <div id="amount_div{{tour.id}}">
+            Spaces left: {{ tour.quantity }}
+          </div>
           <hr>
-           <h1 class="modal-title fs-5">Your Order</h1>
+           <h1 class="modal-title fs-5">Your Order:</h1>
           <p></p>
-            <div id="tour_error" class="error">
-
-            </div>
+          <div id="tour_order_error" class="error">
+          </div>
           Amount of people: <input type="number" id="order_input{{tour.id}}">
           <p></p>
           <div id="order_div{{tour.id}}">
-          <p>Price for all: 0</p>
+              <p>Price for all: 0</p>
           </div>
           <hr>
-          <button type="submit" class="btn btn-warning btn-header confirm_order_button" id="button_{{tour.id}}"
-                  data-url="/tour_order/{{tour.id}}" data-id="{{tour.id}}" data-modal-id="#modal_{{tour.id}}">Confirm order</button>
-
-        </div>
+          <button type="submit" class="btn btn-warning btn-header confirm_order_button"
+                  data-url="/tour_order/{{tour.id}}" data-modal-id="#modal_{{tour.id}}">Confirm order
+          </button>
       </div>
     </div>
   </div>
-<p></p>
-<div id="city_{{tour.id}}">
-    <button class='skibibutton order_button' data-bs-toggle="modal" data-bs-target="#modal_{{tour.id}}"
-            data-id="{{tour.id}}" data-price="{{ tour.price }}"> <h3>{{ tour.city }}</h3> </button>
-    <p></p>
-    <span class="badge bg-warning text-dark">Tour date: {{ tour.tour_date }}</span>
-    <span class="badge bg-warning text-dark">Spaces left: {{ tour.quantity }}</span>
 </div>
-<hr>
+
+
+<div class="col">
+  <div class="my_card border-warning" id="city_{{tour.id}}" data-bs-toggle="modal" data-bs-target="#modal_{{tour.id}}">
+    <div class="card-body">
+      <button class='skibibutton card-title order_button' data-id="{{tour.id}}" data-price="{{ tour.price }}"
+          data-quantity="{{ tour.quantity }}" data-tour_date="{{ tour.tour_date }}" data-city="{{ tour.city }}">
+          <h3>{{ tour.tour_name }}</h3>
+      </button>
+      <div class="card-text" id="tour_info{{tour.id}}">
+          <span class="badge bg-warning text-dark">Tour to: {{ tour.city  }}</span>
+          <span class="badge bg-warning text-dark">Tour date: {{ tour.tour_date  }}</span>
+          <span class="badge bg-warning text-dark">Spaces left: {{ tour.quantity }}</span>
+      </div>
+    </div>
+  </div>
+</div>
 {% endfor %}
+</div>
 {% endblock %}

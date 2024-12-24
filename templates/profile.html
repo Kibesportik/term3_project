@@ -1,1 +1,210 @@
 {% extends 'base.html' %}
+{% block head %}
+<h3>Account Settings:</h3>
+{% endblock %}
+{% block navbar %}
+<button class="btn btn-warning btn-header" id="change_username_btn" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+        data-bs-target="#Change_Username_Window"> Change Username
+</button>
+<button class="btn btn-warning btn-header" id="change_password_btn" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+        data-bs-target="#Change_Password_Window"> Change Password
+</button>
+
+{% endblock %}
+{% block content %}
+<hr>
+<div id="admin_settings" class="d-none">
+    <h3>Admin Settings:</h3>
+    <p></p>
+    <button class="btn btn-warning btn-header" id="add_tour_btn" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+        data-bs-target="#Add_Tour_Window"> Add a Tour
+    </button>
+        <button class="btn btn-warning btn-header" id="delete_tour_btn" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+        data-bs-target="#Delete_Tour_Window"> Delete Tour
+    </button>
+            <button class="btn btn-warning btn-header" id="add_admin_btn" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+        data-bs-target="#Add_Admin_Window"> Add Admin
+    </button>
+        <button class="btn btn-warning btn-header" id="delete_user_btn" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="modal"
+        data-bs-target="#Delete_User_Window"> Delete User
+    </button>
+    <hr>
+</div>
+<h3>Information about your orders:</h3>
+<div class="row row-cols-1 row-cols-md-4 g-1" id="tour_holder">
+{% for i in user_order_list %}
+<div class="col">
+  <div class="my_card border-warning">
+    <div class="card-body">
+      <div class="card-text">
+          <span class="my_badge bg-warning text-dark">Tour to {{i['city']}}</span>
+          <p></p>
+          Tour date: {{i['tour_date']}}
+          <p></p>
+          Spaces booked: {{i['amount']}}
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+<hr>
+<a id="home_btn" data-is_admin="{{is_admin}}"  class="btn btn-warning btn-header user_info" href="{{ url_for('index')}}">Home</a>
+<a href="/logout" class="btn btn-danger text-dark btn-header" id="confirm_logout" data-url="{{url_for('logout')}}" >Logout</a>
+{% endblock %}
+{% block modals %}
+
+  <div class="modal fade" id="Add_Tour_Window" tabindex="-1" aria-labelledby="Add_Tour_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Add Tour</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="add_tour_error" class="error">
+
+            </div>
+          <form id="tourForm" method="post" action="{{url_for('add_tour')}}">
+            Tour name: <input type="text" id="tour_name" name="tour_name">
+            <p></p>
+            City: <input type="text" id="city" name="city" >
+            <p></p>
+            Tour Date: <input type="date" id="tour_date" name="tour_date">
+            <p></p>
+            Tour quantity: <input type="number" id="tour_quant" name="tour_quant">
+            <p></p>
+            Price: <input type="number" id="price" name="price">
+            <p></p>
+            Description: <input type="text" id="description" name="description">
+            <p></p>
+            <button type="submit" class="btn btn-warning btn-header">Add tour</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="Delete_Tour_Window" tabindex="-1" aria-labelledby="Delete_Tour_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Delete Tour</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="delete_tour_error" class="error">
+
+            </div>
+          <form id="tourDeleteForm" method="post" action="{{url_for('delete_tour')}}">
+            Tour name: <input type="text" id="delete_tour_name" name="delete_tour_name">
+            <p></p>
+            <button type="submit" class="btn btn-warning btn-header">Delete Tour</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="Change_Password_Window" tabindex="-1" aria-labelledby="Change_Password_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Reset Password</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="change_password_error" class="error">
+
+            </div>
+    <form id="changePasswordForm" method="post" action="{{url_for('change_password')}}">
+        Current Password: <input type="password" id="current_psw" name="current_psw"/>
+        <p></p>
+        New Password: <input type="password" id="new_psw" name="new_psw"/>
+        <p></p>
+        <button type="submit" class="btn btn-warning btn-header">Change Password</button>
+    </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="Change_Username_Window" tabindex="-1" aria-labelledby="Change_Username_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Change Username</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="change_username_error" class="error">
+
+            </div>
+    <form id="changeUsernameForm" method="post" action="{{url_for('change_username')}}">
+        New Username: <input type="text" id="new_username" name="new_username"/>
+        <p></p>
+        <button type="submit" class="btn btn-warning btn-header">Change Username</button>
+    </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="modal fade" id="Add_Admin_Window" tabindex="-1" aria-labelledby="Add_Admin_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Add Admin</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="add_admin_error" class="error">
+
+            </div>
+    <form  id="addAdminForm" method="post" action="{{url_for('add_admin')}}">
+    Username: <input type="text" id="admin_name"  name="username">
+    <p></p>
+    Email: <input type="email" id="admin_email" name="email"/>
+    <p></p>
+    Password: <input type="password" id="admin_psw" name="password"/>
+    <p></p>
+    Confirm Password: <input type="password" id="admin_confirm_psw" name="confirm_psw"/>
+    <p></p>
+        <button type="submit" class="btn btn-warning btn-header">Confirm</button>
+    </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="Delete_User_Window" tabindex="-1" aria-labelledby="Delete_User_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Delete User</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="delete_user_error" class="error">
+
+            </div>
+    <form id="deleteUserForm" method="post" action="{{url_for('delete_user')}}">
+        Username: <input type="text" id="delete_user" name="delete_user"/>
+        <p></p>
+        <button type="submit" class="btn btn-warning btn-header">Delete User</button>
+    </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block imports %}
+        <script src="/static/js/tour_add-delete.js"></script>
+        <script src="/static/js/profile.js"></script>
+{% endblock %}

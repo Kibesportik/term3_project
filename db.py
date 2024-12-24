@@ -21,7 +21,7 @@ def get_db():
 
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(50), unique=True, nullable=False)
@@ -39,3 +39,11 @@ class Tour(Base):
     tour_date = Column(String(30), nullable=False)
     description = Column(Text, nullable=False)
     price = Column(Integer, nullable=False)
+
+class Order(Base):
+    __tablename__ = 'order'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    tour_id = Column(Integer, ForeignKey('tour.id'), nullable=False)
+    order_amount = Column(Integer, nullable=False)
+

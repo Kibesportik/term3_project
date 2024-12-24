@@ -17,4 +17,20 @@ padding-right: 15px;
     padding: 0;
     background: none;
 }
-
+.my_card {
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 7px 15px 7px 15px;
+    background-color: #808080;
+}
+.my_badge {
+   display: inline-block;
+   padding: 0.25em 0.4em;
+   font-size: 95%;
+   font-weight: 500;
+   line-height: 1;
+   text-align: center;
+   white-space: nowrap;
+   vertical-align: baseline;
+   border-radius: 0.25rem;
+}
