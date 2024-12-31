@@ -84,7 +84,6 @@ document.getElementById("changePasswordForm").addEventListener("submit", functio
 });
 
 document.getElementById("changeUsernameForm").addEventListener("submit", function(event) {
-    console.log($('#new_username').val())
     event.preventDefault();
     $.ajax('/change_username', {
         'type': 'POST',
@@ -106,3 +105,55 @@ document.getElementById("changeUsernameForm").addEventListener("submit", functio
         }
     });
 });
+
+document.getElementById("deleteUserForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    $.ajax('/delete_user', {
+        'type': 'POST',
+        'async': true,
+        'dataType': 'json',
+        'data': {
+            'delete_user': $('#delete_user').val(),
+        },
+        'success': function (response){
+            $('#delete_user').val('');
+            document.getElementById('delete_user_error').innerHTML = '';
+            $('#Delete_User_Window').modal('hide');
+        },
+        'statusCode': {
+        418: function(response) {
+            document.getElementById('delete_user_error').innerHTML = '';
+            document.getElementById('delete_user_error').innerHTML = response.responseJSON.error;
+            }
+        }
+    });
+});
+
+document.getElementById("addAdminForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    $.ajax('/add_admin', {
+        'type': 'POST',
+        'async': true,
+        'dataType': 'json',
+        'data': {
+            'username': $('#admin_name').val(),
+            'email': $('#admin_email').val(),
+            'password': $('#admin_psw').val(),
+            'confirm_psw': $('#admin_confirm_psw').val()
+        },
+        'success': function (response){
+            $('#admin_name').val('');
+            $('#admin_email').val('');
+            $('#admin_psw').val('');
+            $('#admin_confirm_psw').val('');
+            document.getElementById('add_admin_error').innerHTML = '';
+            $('#Add_Admin_Window').modal('hide');
+        },
+        'statusCode': {
+        418: function(response) {
+            document.getElementById('add_admin_error').innerHTML = '';
+            document.getElementById('add_admin_error').innerHTML = response.responseJSON.error;}
+        }
+    });
+});
+

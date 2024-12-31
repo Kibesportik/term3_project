@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% block search %}
+<hr>
+<h5> Find a tour to almost any city:</h5> <input type="text" id="search">
+<button class="btn btn-warning btn-header"  id="search_btn" type="button"> Search</button>
+{% endblock %}
 {% block content %}
 <p></p>
 <div class="row row-cols-1 row-cols-md-2 g-1" id="tour_holder">
@@ -7,7 +12,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-          <h1 class="modal-title fs-5">Order a Tour</h1>
+          <h1 class="modal-title fs-5">Order a Tour {{tour.tour_name}}:</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -17,6 +22,8 @@
           <div id="amount_div{{tour.id}}">
             Spaces left: {{ tour.quantity }}
           </div>
+          <p></p>
+          Tour description: {{ tour.description }}
           <hr>
            <h1 class="modal-title fs-5">Your Order:</h1>
           <p></p>
@@ -37,7 +44,7 @@
 </div>
 
 
-<div class="col">
+<div class="col" id="{{tour.id}}">
   <div class="my_card border-warning" id="city_{{tour.id}}" data-bs-toggle="modal" data-bs-target="#modal_{{tour.id}}">
     <div class="card-body">
       <button class='skibibutton card-title order_button' data-id="{{tour.id}}" data-price="{{ tour.price }}"
