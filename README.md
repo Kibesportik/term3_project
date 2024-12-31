@@ -3,7 +3,7 @@
 
 ## Used progamming languages :
 
-- Python: Used for server-side logic, data processing, and database interaction. Framework used: FastApi
+- Python: Used for server-side logic, data processing, and database interaction. Framework used: FastApi.
 - HTML : Used for structuring the web pages.
 - CSS : Used for styling and creating responsive designs.
 - JavaScript: Used for interactivity, as well as working with APIs and dynamically updating content.
