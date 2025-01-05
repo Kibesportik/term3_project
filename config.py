@@ -5,4 +5,4 @@ from starlette.middleware.sessions import SessionMiddleware
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
-app.add_middleware(SessionMiddleware, secret_key="your_secret_key")
+app.add_middleware(SessionMiddleware, secret_key="ded_in_dog")
