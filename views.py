@@ -251,8 +251,8 @@ def delete_tour(request: Request,
 
 @app.post('/delete_user')
 def delete_user(request: Request,
-                delete_username: str = Form(),
-                db: Session = Depends(get_db)):
+                db: Session = Depends(get_db),
+                delete_username: str = Form()):
     if request.session['is_login'] and request.session['is_admin']:
         user_info = db.query(User).filter_by(username=delete_username).first()
         if user_info is not None:

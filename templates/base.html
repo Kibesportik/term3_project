@@ -63,13 +63,13 @@
 
             </div>
     <form  id="registerForm" method="post" action="{{url_for('register')}}">
-    Username: <input type="text" id="register_username"  name="username">
+    Username: <input type="text" id="register_username"  name="username" required>
     <p></p>
-    Email: <input type="email" id="register_email" name="email"/>
+    Email: <input type="email" id="register_email" name="email" required/>
     <p></p>
-    Password: <input type="password" id="register_psw" name="password"/>
+    Password: <input type="password" id="register_psw" name="password" required/>
     <p></p>
-    Confirm Password: <input type="password" id="register_confirm_psw" name="confirm_psw"/>
+    Confirm Password: <input type="password" id="register_confirm_psw" name="confirm_psw" required/>
     <p></p>
         <button type="submit" class="btn btn-warning btn-header">Confirm</button>
     </form>
@@ -90,9 +90,9 @@
 
             </div>
     <form id="loginForm" method="post" action="{{url_for('login')}}">
-    Email: <input type="email" id="login_email" name="email"/>
+    Email: <input type="email" id="login_email" name="email" required/>
     <p></p>
-    Password: <input type="password" id="login_psw" name="password"/>
+    Password: <input type="password" id="login_psw" name="password" required/>
     <p></p>
     <button type="submit" class="btn btn-warning btn-header">Confirm</button>
     </form>

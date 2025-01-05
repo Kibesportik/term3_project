@@ -108,12 +108,13 @@ document.getElementById("changeUsernameForm").addEventListener("submit", functio
 
 document.getElementById("deleteUserForm").addEventListener("submit", function(event) {
     event.preventDefault();
+    const delete_user = $('#delete_user').val();
     $.ajax('/delete_user', {
         'type': 'POST',
         'async': true,
         'dataType': 'json',
         'data': {
-            'delete_user': $('#delete_user').val(),
+            'delete_username': delete_user,
         },
         'success': function (response){
             $('#delete_user').val('');
